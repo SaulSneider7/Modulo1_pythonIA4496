@@ -31,6 +31,23 @@ imshow('Binario', binaria)
 complemento = cv2.bitwise_not(binaria)
 imshow('Complemento', complemento)
 
+#Operacion de Dilatacion, erosion, apertura y cierre
+
+kernel = np.ones((5,5), np.uint8)
+
+erosion = cv2.erode(binaria, kernel)
+imshow('Erosion', erosion)
+
+dilatacion = cv2.dilate(erosion, kernel)
+imshow('Dilatacion', dilatacion)
+
+apertura = cv2.morphologyEx(dilatacion, cv2.MORPH_OPEN, kernel)
+imshow('Apertura', apertura)
+
+cerradura = cv2.morphologyEx(dilatacion, cv2.MORPH_CLOSE, kernel)
+imshow('Cerradura', cerradura)
+
+
 
 # -------------------------------------------------------------------------
 # Deja siempre este código hasta el final del archivo - no lo borres
