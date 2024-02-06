@@ -27,6 +27,10 @@ plt.show()
 _, binaria = cv2.threshold(grises, 86, 255, cv2.THRESH_BINARY)
 imshow('Binario', binaria)
 
+#Complemento de imagen
+complemento = cv2.bitwise_not(binaria)
+imshow('Complemento', complemento)
+
 
 # -------------------------------------------------------------------------
 # Deja siempre este código hasta el final del archivo - no lo borres
