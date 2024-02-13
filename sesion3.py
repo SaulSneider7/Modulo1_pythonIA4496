@@ -11,7 +11,23 @@ from matplotlib import pyplot as plt
 
 # -------------------------------------------------------------------------
 # Escribe tu código aquí:
+img = cv2.imread('./img/7.jpg')
+imshow('Foto', img)
 
+#RUIDO
+ruido = noise(img)
+imshow('RUIDO', ruido)
+
+#DESENFOQUE A IMAGEN
+kernel = np.ones((15,15), np.float32) / (15*15)
+desenfoque = cv2.filter2D(img, -1, kernel)
+imshow('Desenfoque', desenfoque)
+
+#ENFOQUE A IMAGEN
+kernel = -1 * np.ones((5,5), np.float32)
+kernel[2, 2] = 25
+enfoque = cv2.filter2D(desenfoque, -1, kernel)
+imshow('Enfoque', enfoque)
 
 
 
