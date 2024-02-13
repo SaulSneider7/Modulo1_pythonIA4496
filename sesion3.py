@@ -29,6 +29,13 @@ kernel[2, 2] = 25
 enfoque = cv2.filter2D(desenfoque, -1, kernel)
 imshow('Enfoque', enfoque)
 
+#Brillo y Contraste
+contraste = 2.0 #Menor a 1 menos contraste, Mayor a 1 sube el contraste
+brillo = -6     #Mantenlo en el rango de -255 a 255 de otra forma solo veras negro o blanco
+nueva = cv2.convertScaleAbs(img, alpha=contraste, beta=brillo)
+imshow('Nueva', nueva)
+
+
 
 
 # -------------------------------------------------------------------------
