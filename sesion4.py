@@ -43,6 +43,17 @@ while True:
     # Convertir imagen a grises
     grises = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
 
+    # Crea bordes de la imagen binaria
+    bordes = cv2.adaptiveThreshold(grises, 255, cv2.ADAPTIVE_THRESH_MEAN_C,
+                                   cv2.THRESH_BINARY, 11, 2)
+    cv2.imshow('Bordes', bordes)
+
+    # Limpiar Bordes
+    kernel = np.ones((3, 3), np.uint8)
+    dilatacion = cv2.dilate(bordes, kernel)
+    cv2.imshow('Dilatacion', dilatacion)
+
+
 
 
 
