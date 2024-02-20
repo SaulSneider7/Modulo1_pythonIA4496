@@ -53,7 +53,36 @@ while True:
     dilatacion = cv2.dilate(bordes, kernel)
     cv2.imshow('Dilatacion', dilatacion)
 
+    #-----------------------------------------------------------------
+    # Combinar camara y el cambio de fondo
 
+    # Crear imagen binaria
+    _, binaria = cv2.threshold(grises, 100, 255, cv2.THRESH_BINARY)
+    binaria = cv2.bitwise_not(binaria)
+
+    # Separar la persona de la imagen original
+    persona = np.zeros(frame.shape, np.uint8)
+    for i in range(3):
+        persona[:, :, i] = cv2.bitwise_and(frame[:, :, i], binaria)
+    imshow('Persona', persona)
+
+    #Leer fondo
+    fondo = cv2.imread("./img/fondo.jpg")
+    fondo = cv2.resize(fondo, binaria.shape[::-1])
+
+    # Obtener el fondo con el espacio de la persona
+    for i in range(3):
+        fondo[:, :, i] = cv2.bitwise_and(fondo[:, :, i], cv2.bitwise_not(binaria))
+
+    #Combinar la persona con el fondo
+    persona += fondo
+    imshow('Persona', persona)
+
+    #----------------------------------------------------------
+    # Cerrar Ventana cuando se presiona la tecla "q"
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
 
 
 
@@ -61,5 +90,5 @@ while True:
 # Deja siempre este código hasta el final del archivo - no lo borres
 # Este código sirve para mantener las ventas abiertas y
 # cerrarlas cuando se presiona una tecla
-cv2.waitKey(0)
 cv2.destroyAllWindows()
+cap.release()
